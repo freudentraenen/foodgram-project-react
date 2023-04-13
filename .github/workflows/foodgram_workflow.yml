@@ -53,7 +53,7 @@ jobs:
       - name: push frontend to dockerhub
         uses: docker/build-push-action@v2
         with:
-          file: ..frontend/Dockerfile
+          file: ../frontend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
 
