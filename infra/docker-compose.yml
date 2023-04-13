@@ -7,15 +7,13 @@ services:
     env_file:
     - ./.env
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    image: freudentraenen/foodgram_frontend:latest
     volumes:
       - ../frontend/:/app/result_build/
     depends_on:
     - db
   backend:
-    image: freudentraenen/foodgram:latest
+    image: freudentraenen/foodgram_backend:latest
     restart: always
     volumes:
       - static_value:/app/static/
