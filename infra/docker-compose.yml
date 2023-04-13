@@ -16,12 +16,12 @@ services:
     - db
   backend:
     build:
-      context: ../backend/foodgram
+      context: ../backend
       dockerfile: Dockerfile
     restart: always
     volumes:
       - static_value:/app/static/
-      - media_value:/app/media/
+      - media_value:/app/foodgram/media/
     depends_on:
     - frontend
     env_file:

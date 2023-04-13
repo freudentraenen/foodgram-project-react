@@ -19,11 +19,11 @@ class Tag(models.Model):
         default='#000000',
         max_length=7,
         unique=True,
-        validators=[
+        validators=(
             RegexValidator(
                 r'^#(?:[0-9a-fA-F]{3}){1,2}$'
-            )
-        ]
+            ),
+        )
     )
 
     class Meta:
@@ -84,13 +84,16 @@ class Recipe(models.Model):
     )
     cooking_time = models.PositiveIntegerField(
         'время приготовления',
-        validators=[MinValueValidator(1, 'значение должно быть больше 1')]
+        validators=(MinValueValidator(1, 'значение должно быть больше 1'),)
     )
 
     class Meta:
         verbose_name = 'рецепт'
         verbose_name_plural = 'рецепты'
         ordering = ['-pub_date']
+
+    def __str__(self) -> str:
+        return self.name
 
     def get_tags(self) -> str:
         return ',\n'.join([t.name for t in self.tags.all()])
@@ -103,9 +106,6 @@ class Recipe(models.Model):
              for i in self.ingredients.all()]
         )
     get_ingredients.short_description = 'ингредиенты'
-
-    def __str__(self) -> str:
-        return self.name
 
 
 class RecipeIngredient(models.Model):
@@ -123,7 +123,7 @@ class RecipeIngredient(models.Model):
     )
     amount = models.PositiveSmallIntegerField(
         'количество',
-        validators=[MinValueValidator(1, 'значение должно быть больше 1')]
+        validators=(MinValueValidator(1, 'значение должно быть больше 1'),)
     )
 
     class Meta:
