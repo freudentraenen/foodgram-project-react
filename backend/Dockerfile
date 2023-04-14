@@ -6,6 +6,6 @@ COPY ./backend/requirements.txt /app
 
 RUN pip3 install -r /app/requirements.txt --no-cache-dir
 
-COPY ./ /app
+COPY ./backend /app
 
 CMD ["gunicorn", "--pythonpath", "/app/foodgram", "foodgram.wsgi:application", "--bind", "0.0.0.0:8000"]
