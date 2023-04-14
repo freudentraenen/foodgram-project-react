@@ -8,4 +8,4 @@ RUN pip3 install -r /app/requirements.txt --no-cache-dir
 
 COPY ./backend /app
 
-CMD ["gunicorn", "--pythonpath", "/app/backend/foodgram", "foodgram.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["sleep", "infinity"]
