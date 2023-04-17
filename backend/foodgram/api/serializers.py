@@ -27,7 +27,7 @@ class NestedRecipeSerializer(serializers.ModelSerializer):
         request = self.context['request']
         image_url = obj.image.url
         return request.build_absolute_uri(image_url).replace(
-            'backend:8000', CSRF_TRUSTED_ORIGINS[0]
+            'http://backend:8000', CSRF_TRUSTED_ORIGINS[0]
         )
 
 
@@ -167,7 +167,7 @@ class RecipeReadSerializer(serializers.ModelSerializer):
         request = self.context['request']
         image_url = obj.image.url
         return request.build_absolute_uri(image_url).replace(
-            'backend:8000', CSRF_TRUSTED_ORIGINS[0]
+            'http://backend:8000', CSRF_TRUSTED_ORIGINS[0]
         )
 
     def get_is_favorited(self, obj):
