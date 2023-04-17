@@ -1,9 +1,8 @@
 from django_filters import rest_framework
-from django.shortcuts import get_object_or_404
 
 from rest_framework.filters import SearchFilter
 
-from recipes.models import Recipe, Tag
+from recipes.models import Recipe
 
 
 class IngredientSearchFilter(SearchFilter):
@@ -12,7 +11,7 @@ class IngredientSearchFilter(SearchFilter):
 
 class RecipeFilter(rest_framework.FilterSet):
     author = rest_framework.NumberFilter(field_name='author__pk')
-    tags = rest_framework.NumberFilter(field_name='tags', method='get_tags')
+    tags = rest_framework.CharFilter(field_name='tags__slug')
     is_favorited = rest_framework.NumberFilter(method='get_is_favorited')
     is_in_shopping_cart = rest_framework.NumberFilter(
         method='get_is_in_shopping_cart'
@@ -24,10 +23,6 @@ class RecipeFilter(rest_framework.FilterSet):
             'author',
             'tags'
         )
-
-    def get_tags(self, queryset, name, value):
-        obj = get_object_or_404(Tag, slug=value)
-        return queryset.filter(tags__in=list(obj))
 
     def get_is_favorited(self, queryset, name, value):
         if value == 1:
