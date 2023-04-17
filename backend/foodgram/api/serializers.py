@@ -1,3 +1,5 @@
+from foodgram.settings import CSRF_TRUSTED_ORIGINS
+
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import get_object_or_404
 
@@ -25,7 +27,7 @@ class NestedRecipeSerializer(serializers.ModelSerializer):
         request = self.context['request']
         image_url = obj.image.url
         return request.build_absolute_uri(image_url).replace(
-            'backend:8000', '127.0.0.1'
+            'backend:8000', CSRF_TRUSTED_ORIGINS[0]
         )
 
 
