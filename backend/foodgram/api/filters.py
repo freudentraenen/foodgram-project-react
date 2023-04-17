@@ -27,7 +27,7 @@ class RecipeFilter(rest_framework.FilterSet):
 
     def get_tags(self, queryset, name, value):
         obj = get_object_or_404(Tag, slug=value)
-        return queryset.filter(tags__pk=obj)
+        return queryset.filter(tags__in=list(obj))
 
     def get_is_favorited(self, queryset, name, value):
         if value == 1:
