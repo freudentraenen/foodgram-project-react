@@ -29,12 +29,12 @@ ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost',
     'http://127.0.0.1',
-    'http://51.250.28.239'
+    'http://158.160.21.110'
 ]
 CORS_ORIGIN_WHITELIST = [
     'http://localhost',
     'http://127.0.0.1',
-    'http://51.250.28.239'
+    'http://158.160.21.110'
 ]
 
 
