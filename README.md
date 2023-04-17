@@ -14,4 +14,4 @@ Foodgram - это сервис, предназначенный для любит
 * psycopg2-binary 2.9.6
 
 ### Ссылка по которой можно проверить работоспособность проекта:
-[foodgram](foodgram-praktikum.ddns.net)
+[foodgram](http://foodgram-praktikum.ddns.net)
