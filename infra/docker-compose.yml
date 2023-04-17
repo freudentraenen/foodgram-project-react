@@ -16,7 +16,7 @@ services:
     image: freudentraenen/foodgram_backend:latest
     restart: always
     volumes:
-      - static_value:/app/static/
+      - static_value:/app/foodgram/static/
       - media_value:/app/foodgram/media/
     depends_on:
     - frontend
