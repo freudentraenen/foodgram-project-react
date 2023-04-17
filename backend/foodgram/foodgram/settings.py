@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
-    'http://158.160.21.110'
+    'http://158.160.21.110',
     'http://localhost',
     'http://127.0.0.1',
 ]
