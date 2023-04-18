@@ -14,6 +14,6 @@ Foodgram - это сервис, предназначенный для любит
 * psycopg2-binary 2.9.6
 
 ### Проверить работоспособность проекта:
-[foodgram](http://foodgram-praktikum.ddns.net)
-Имя пользователя администратора: superuser
-Пароль администратора: 1LGqs2_f
+[foodgram](http://foodgram-praktikum.ddns.net)  
+Имя пользователя администратора: superuser  
+Пароль администратора: 1LGqs2_f  
