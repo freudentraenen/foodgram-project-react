@@ -131,7 +131,12 @@ class RecipeFavoritesShoppingCartSerializer(serializers.ModelSerializer):
             'image',
             'cooking_time'
         )
-        read_only_fields = '__all__'
+        read_only_fields = (
+            'id',
+            'name',
+            'image',
+            'cooking_time'
+        )
 
 
 class RecipeReadSerializer(serializers.ModelSerializer):

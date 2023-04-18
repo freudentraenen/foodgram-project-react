@@ -52,11 +52,11 @@ class User(AbstractUser):
         return self.username
 
     def get_favorite_recipes(self) -> str:
-        return ',\n'.join([f_r.name for f_r in self.favorite_recipes.all()])
+        return ',\n'.join([r.name for r in self.favorite_recipes.all()])
     get_favorite_recipes.short_description = 'избранные рецепты'
 
     def get_shopping_cart(self) -> str:
-        return ',\n'.join([s_r.name for s_r in self.shopping_cart.all()])
+        return ',\n'.join([r.name for r in self.shopping_cart.all()])
     get_shopping_cart.short_description = 'список покупок'
 
 

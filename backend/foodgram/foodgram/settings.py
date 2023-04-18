@@ -23,15 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', default='django-insecure-7icxnuo7mrk%cfjs+$7-__g^oku$7qi@zp+(cpijwe_wa92ejn')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [
+    'http://foodgram-praktikum.ddns.net',
     'http://158.160.21.110',
     'http://localhost',
     'http://127.0.0.1',
 ]
 CORS_ORIGIN_WHITELIST = [
+    'http://foodgram-praktikum.ddns.net',
     'http://158.160.21.110',
     'http://localhost',
     'http://127.0.0.1',

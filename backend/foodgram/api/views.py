@@ -116,12 +116,6 @@ class UserViewSet(viewsets.ModelViewSet):
             permission_classes=(permissions.IsAuthenticated,),
             url_path=r'(?P<user_pk>\d+)/subscribe')
     def subscribe(self, request, user_pk):
-        '''if request.user == get_object_or_404(User, pk=user_pk):
-            return Response(
-                {'errors': 'нельзя подписываться на самого себя '
-                           'или отписываться от самого себя'},
-                status=status.HTTP_400_BAD_REQUEST
-            )'''
         try:
             following = get_object_or_404(User, pk=user_pk)
             Follow.objects.create(
@@ -138,9 +132,7 @@ class UserViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-    @action(methods=('delete',), detail=False,
-            permission_classes=(permissions.IsAuthenticated,),
-            url_path=r'(?P<user_pk>\d+)/subscribe')
+    @subscribe.mapping.delete
     def unsubscribe(self, request, user_pk):
         follow = Follow.objects.filter(
             user=request.user,
