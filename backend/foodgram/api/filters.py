@@ -11,7 +11,8 @@ class IngredientSearchFilter(SearchFilter):
 
 class RecipeFilter(rest_framework.FilterSet):
     author = rest_framework.NumberFilter(field_name='author__pk')
-    tags = rest_framework.CharFilter(field_name='tags__slug')
+    tags = rest_framework.CharFilter(
+        field_name='tags__slug', lookup_expr='in', distinct=True)
     is_favorited = rest_framework.NumberFilter(method='get_is_favorited')
     is_in_shopping_cart = rest_framework.NumberFilter(
         method='get_is_in_shopping_cart'
