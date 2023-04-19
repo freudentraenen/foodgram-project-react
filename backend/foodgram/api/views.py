@@ -20,12 +20,10 @@ from recipes.models import Recipe, Tag, Ingredient
 from users.models import User, Follow
 from .filters import RecipeFilter, IngredientSearchFilter
 from .permissions import IsAuthorOrReadOnly
-from .renderers import TextDataRenderer
 from .serializers import (RecipeReadSerializer, TagSerializer,
                           IngredientSerializer, UserSerializer,
                           RecipeFavoritesShoppingCartSerializer,
-                          RecipeWriteSerializer,
-                          RecipeIngredientReadSerializer)
+                          RecipeWriteSerializer)
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -71,15 +69,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
         for obj in ingredients:
             writer.writerow(obj['ingredient'], obj['amount'])
         return response
-        '''recipes = Recipe.objects.filter(users_who_shopped=request.user)
-        ingredients = recipes.ingredients
-        serializer = RecipeIngredientReadSerializer(ingredients, many=True)
-        return Response(
-            serializer.data,
-            headers={
-                'Content-Disposition': 'attachment;'
-                                       'filename="shopping_list.txt"'}
-        )'''
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
