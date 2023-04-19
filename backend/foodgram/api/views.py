@@ -71,11 +71,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
         writer = csv.writer(response)
         writer.writerow(['Название', 'Количество'])
         for obj in ingredients:
-            writer.writerow(
+            writer.writerow([
                 obj['ingredients__ingredient__name'],
                 obj['ingredients__amount'],
                 obj['ingredients__ingredient__measurement_unit']
-            )
+            ])
         return response
 
 
