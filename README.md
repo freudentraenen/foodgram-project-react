@@ -1,3 +1,5 @@
+![](https://github.com/freudentraenen/foodgram-project-react/actions/workflows/foodgram_workflow.yml/badge.svg)
+
 # Продуктовый помощник Foodgram.
 
 ### Описание
