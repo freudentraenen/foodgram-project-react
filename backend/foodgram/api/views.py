@@ -60,7 +60,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(methods=('get',), detail=False)
     def download_shopping_cart(self, request):
         recipes = Recipe.objects.filter(users_who_shopped=request.user)
-        ingredients = recipes.ingredients
+        ingredients = recipes.values('ingredients')
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = ('attachment; '
                                            'filename="shopping_list.csv"')
