@@ -65,9 +65,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
             'ingredients__amount',
             'ingredients__ingredient__measurement_unit'
         )
-        response = HttpResponse(content_type='text/plain')
+        response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = ('attachment; '
-                                           'filename="shopping_list.txt"')
+                                           'filename="shopping_list.csv"')
         writer = csv.writer(response)
         writer.writerow(['Название', 'Количество'])
         for obj in ingredients:
