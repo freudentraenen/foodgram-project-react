@@ -11,11 +11,10 @@ class IngredientSearchFilter(SearchFilter):
 
 class RecipeFilter(rest_framework.FilterSet):
     author = rest_framework.NumberFilter(field_name='author__pk')
-    tags = rest_framework.CharFilter(
-        field_name='tags__slug', lookup_expr='in', distinct=True)
-    is_favorited = rest_framework.NumberFilter(method='get_is_favorited')
+    tags = rest_framework.CharFilter(method='filter_tags')
+    is_favorited = rest_framework.NumberFilter(method='filter_is_favorited')
     is_in_shopping_cart = rest_framework.NumberFilter(
-        method='get_is_in_shopping_cart'
+        method='filter_is_in_shopping_cart'
     )
 
     class Meta:
@@ -25,7 +24,10 @@ class RecipeFilter(rest_framework.FilterSet):
             'tags'
         )
 
-    def get_is_favorited(self, queryset, name, value):
+    def filter_tags(self, queryset, name, value):
+        return queryset.filter(tags__slug__in=self.request.GET.getlist('tags'))
+
+    def filter_is_favorited(self, queryset, name, value):
         if value == 1:
             queryset = queryset.filter(users_who_favorited=self.request.user)
             return queryset
@@ -34,7 +36,7 @@ class RecipeFilter(rest_framework.FilterSet):
             return queryset
         return queryset
 
-    def get_is_in_shopping_cart(self, queryset, name, value):
+    def filter_is_in_shopping_cart(self, queryset, name, value):
         if value == 1:
             queryset = queryset.filter(users_who_shopped=self.request.user)
             return queryset
