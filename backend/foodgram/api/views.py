@@ -1,5 +1,8 @@
+import csv
+
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ValidationError
+from django.http import HttpResponse
 
 from rest_framework import viewsets, status, permissions
 from rest_framework.generics import ListAPIView, RetrieveAPIView
@@ -21,7 +24,8 @@ from .renderers import TextDataRenderer
 from .serializers import (RecipeReadSerializer, TagSerializer,
                           IngredientSerializer, UserSerializer,
                           RecipeFavoritesShoppingCartSerializer,
-                          RecipeWriteSerializer)
+                          RecipeWriteSerializer,
+                          RecipeIngredientReadSerializer)
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
@@ -55,17 +59,27 @@ class RecipeViewSet(viewsets.ModelViewSet):
             author=self.request.user
         )
 
-    @action(methods=['get'], detail=False, renderer_classes=[TextDataRenderer])
+    @action(methods=('get',), detail=False)
     def download_shopping_cart(self, request):
         recipes = Recipe.objects.filter(users_who_shopped=request.user)
-        ingredients = Ingredient.objects.filter(recipes__id__in=recipes)
-        serializer = IngredientSerializer(ingredients, many=True)
+        ingredients = recipes.ingredients
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = ('attachment; '
+                                           'filename="shopping_list.csv"')
+        writer = csv.writer(response)
+        writer.writerow(['Название', 'Количество'])
+        for obj in ingredients:
+            writer.writerow(obj['ingredient'], obj['amount'])
+        return response
+        '''recipes = Recipe.objects.filter(users_who_shopped=request.user)
+        ingredients = recipes.ingredients
+        serializer = RecipeIngredientReadSerializer(ingredients, many=True)
         return Response(
             serializer.data,
             headers={
                 'Content-Disposition': 'attachment;'
                                        'filename="shopping_list.txt"'}
-        )
+        )'''
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
