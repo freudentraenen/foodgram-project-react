@@ -60,14 +60,22 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(methods=('get',), detail=False)
     def download_shopping_cart(self, request):
         recipes = Recipe.objects.filter(users_who_shopped=request.user)
-        ingredients = recipes.values('ingredients')
+        ingredients = recipes.values(
+            'ingredients__ingredient__name',
+            'ingredients__amount',
+            'ingredients__ingredient__measurement_unit'
+        )
         response = HttpResponse(content_type='text/csv')
         response['Content-Disposition'] = ('attachment; '
                                            'filename="shopping_list.csv"')
         writer = csv.writer(response)
         writer.writerow(['Название', 'Количество'])
         for obj in ingredients:
-            writer.writerow(obj['ingredient'], obj['amount'])
+            writer.writerow(
+                obj['ingredients__ingredient__name'],
+                obj['ingredients__amount'],
+                obj['ingredients__ingredient__measurement_unit']
+            )
         return response
 
 
