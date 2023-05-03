@@ -14,8 +14,3 @@ Foodgram - это сервис, предназначенный для любит
 * djoser 2.1.0
 * gunicorn 20.1.0
 * psycopg2-binary 2.9.6
-
-### Проверить работоспособность проекта:
-[foodgram](http://foodgram-praktikum.ddns.net)  
-Имя пользователя администратора: superuser  
-Пароль администратора: 1LGqs2_f  
